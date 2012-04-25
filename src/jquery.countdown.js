@@ -33,29 +33,35 @@
     }
     
     return this.each(function() {
-      // Convert
-      if(!(toDate instanceof Date)) {
-        if(String(toDate).match(/^[0-9]*$/)) {
-          toDate = new Date(toDate);
-        } else if( toDate.match(/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})\s([0-9]{1,2})\:([0-9]{2})\:([0-9]{2})/) ||
-            toDate.match(/([0-9]{2,4})\/([0-9]{1,2})\/([0-9]{1,2})\s([0-9]{1,2})\:([0-9]{2})\:([0-9]{2})/)
-            ) {
-          toDate = new Date(toDate);
-        } else if(toDate.match(/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/) || 
-                  toDate.match(/([0-9]{2,4})\/([0-9]{1,2})\/([0-9]{1,2})/)
-                  ) {
-          toDate = new Date(toDate)
-        } else {
-          throw new Error("Doesn't seen to be a valid date object or string")
-        }
-      }
-      
+
       var $this = $(this),
           values = {},
           lasting = {},
           interval = $this.data('countdownInterval'),
           currentDate = new Date(),
-          secondsLeft = Math.floor((toDate.valueOf() - currentDate.valueOf()) / 1000);
+          secondsLeft = toDate.secondsLeft;
+
+      if (!secondsLeft) {
+
+        // Convert
+        if(!(toDate instanceof Date)) {
+          if(String(toDate).match(/^[0-9]*$/)) {
+            toDate = new Date(toDate);
+          } else if( toDate.match(/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})\s([0-9]{1,2})\:([0-9]{2})\:([0-9]{2})/) ||
+              toDate.match(/([0-9]{2,4})\/([0-9]{1,2})\/([0-9]{1,2})\s([0-9]{1,2})\:([0-9]{2})\:([0-9]{2})/)
+              ) {
+            toDate = new Date(toDate);
+          } else if(toDate.match(/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/) || 
+                    toDate.match(/([0-9]{2,4})\/([0-9]{1,2})\/([0-9]{1,2})/)
+                    ) {
+            toDate = new Date(toDate)
+          } else {
+            throw new Error("Doesn't seen to be a valid date object or string")
+          }
+        }
+
+        secondsLeft = Math.floor((toDate.valueOf() - currentDate.valueOf()) / 1000);
+      }
       
       function triggerEvents() {
         secondsLeft--;
