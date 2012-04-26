@@ -1,6 +1,6 @@
 /*
- * jQuery The Final Countdown plugin v1.0.0 beta
- * http://github.com/hilios/jquery.countdown
+ * jQuery The Final Countdown plugin v1.0.1 beta
+ * http://github.com/rbdone/jquery.countdown
  *
  * Copyright (c) 2011 Edson Hilios
  *
@@ -100,6 +100,7 @@
           case "seconds":
           case "minutes":
           case "hours":
+          case "daysLeft":
             event.value = event.value < 10 ? '0'+event.value.toString() : event.value.toString();
             break;
           default:
